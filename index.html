@@ -1,62 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101225">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nova AI Studio</title>
+
 <style>
-:root{color-scheme:dark;--line:#2b304b;--text:#f4f5ff;--muted:#a4aac7;--accent:#8c6bff}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#202047,#0b0d18 60%);color:var(--text);font:15px system-ui,sans-serif;min-height:100vh}
-header{padding:20px 16px;max-width:900px;margin:auto;display:flex;align-items:center;gap:12px}
-.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#8c6bff,#20d6c2);display:grid;place-items:center;font-size:24px;font-weight:900}
-h1{font-size:21px;margin:0}
-header p{margin:3px 0 0;color:var(--muted);font-size:12px}
-.badge{margin-left:auto;border:1px solid #45406c;border-radius:20px;padding:6px 10px;font-size:11px}
-main{max-width:900px;margin:auto;padding:0 14px 30px}
-.tabs{display:flex;gap:8px;padding:8px;background:#111426;border:1px solid var(--line);border-radius:15px;margin-bottom:14px}
-.tab{flex:1;border:0;background:transparent;color:var(--muted);padding:12px 5px;border-radius:10px;font-weight:700}
-.tab.active{background:linear-gradient(120deg,#6e53dd,#8d66ff);color:white}
-.card{background:#14172aeb;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:13px}
-.card h2{font-size:17px;margin:0 0 5px}
-.hint{color:var(--muted);font-size:12px;margin:0 0 14px}
-label{display:block;font-size:12px;color:#c4c9e2;margin:12px 0 7px}
-textarea,select{width:100%;background:#0b0e1d;border:1px solid #343a59;border-radius:11px;padding:12px;color:var(--text);font:inherit}
-textarea{min-height:108px;resize:vertical}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn{border:0;border-radius:11px;padding:13px 15px;background:linear-gradient(120deg,#7257ed,#9a63ff);color:white;font-weight:750;width:100%;margin-top:13px;cursor:pointer}
-.btn:disabled{opacity:.55}
-.secondary{background:#242943;border:1px solid #424969}
-.result{margin-top:14px;white-space:pre-wrap;overflow-wrap:anywhere}
-.result img,.result video{display:block;width:100%;max-height:65vh;object-fit:contain;border-radius:12px}
-.chatlog{max-height:50vh;overflow:auto;display:flex;flex-direction:column;gap:10px}
-.bubble{padding:12px;border-radius:13px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
-.user{align-self:flex-end;background:#423575;max-width:92%}
-.assistant{background:#0c1020;border:1px solid #2a304b}
+body{
+ margin:0;padding:0;
+ background:linear-gradient(145deg,#080b18,#171538,#071b2b);
+ color:white;font-family:Arial,sans-serif;
+ min-height:100vh
+}
+header{
+ text-align:center;padding:22px 10px;
+ background:#101428;border-bottom:1px solid #34365b
+}
+header h1{margin:0;font-size:27px}
+header h1 span{color:#22d3ee}
+header p{color:#b5bed5;font-size:13px}
+main{max-width:800px;margin:auto;padding:14px}
+.status{
+ background:#111a2d;border:1px solid #34415f;
+ padding:12px;border-radius:10px;font-size:13px;
+ margin-bottom:12px;color:#b5bed5
+}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tab{
+ flex:1;padding:13px 5px;border-radius:10px;
+ border:1px solid #394363;background:#151b31;
+ color:white;font-weight:bold
+}
+.tab.active{background:linear-gradient(110deg,#7c3aed,#087eaa)}
+.panel{
+ background:#11182b;border:1px solid #303b59;
+ border-radius:15px;padding:15px;margin-bottom:14px
+}
+.panel h2{margin-top:0}
+.hint{color:#b5bed5;font-size:13px;line-height:1.5}
+label{display:block;margin:13px 0 6px;font-size:13px}
+input,textarea,select{
+ width:100%;padding:12px;border-radius:9px;
+ border:1px solid #394363;background:#090f20;
+ color:white;font-size:15px
+}
+textarea{min-height:95px;resize:vertical}
+button{cursor:pointer;font-size:15px}
+.primary{
+ width:100%;padding:13px;margin-top:12px;
+ border:0;border-radius:10px;color:white;
+ font-weight:bold;background:linear-gradient(110deg,#7c3aed,#0891b2)
+}
+button:disabled{opacity:.55}
 .hidden{display:none!important}
-footer{text-align:center;color:#8188a9;font-size:11px;padding:15px}
-.status{font-size:12px;color:var(--muted);margin-top:10px;white-space:pre-wrap}
-@media(min-width:700px){.card{padding:22px}}
+.chatbox{
+ height:270px;overflow:auto;background:#080e1e;
+ border:1px solid #303b59;border-radius:10px;padding:10px
+}
+.bubble{
+ padding:10px;margin:8px 0;border-radius:10px;
+ white-space:pre-wrap;overflow-wrap:anywhere
+}
+.assistant{background:#1c2945}
+.user{background:#49317d}
+.chatrow{display:flex;gap:7px;margin-top:10px}
+.chatrow input{flex:1;min-width:0}
+.chatrow button{
+ padding:0 16px;border:0;border-radius:9px;
+ background:#7c3aed;color:white;font-weight:bold
+}
+.result{margin-top:12px;overflow-wrap:anywhere;line-height:1.5}
+.result img,.result video{
+ display:block;max-width:100%;height:auto;
+ border-radius:10px;margin-top:10px
+}
+.download{
+ display:inline-block;margin-top:10px;padding:10px;
+ border-radius:8px;background:#263655;color:white;
+ text-decoration:none
+}
+footer{text-align:center;color:#8994b2;font-size:12px;padding:15px}
 </style>
 </head>
+
 <body>
 <header>
-<div class="logo">N</div>
-<div><h1>Nova AI Studio</h1><p>AI Chat · Image Generator · Video Studio</p></div>
-<span class="badge">BETA</span>
+<h1>✦ NOVA <span>AI STUDIO</span></h1>
+<p>AI Chat • Image Generator • Video Generator</p>
 </header>
 
 <main>
+<div class="status" id="health">Connecting to Nova server...</div>
+
 <div class="tabs">
-<button class="tab active" data-tab="chat">✦ AI Chat</button>
-<button class="tab" data-tab="image">▧ Image</button>
-<button class="tab" data-tab="video">▶ Video</button>
+<button class="tab active" data-tab="chat">💬 Chat</button>
+<button class="tab" data-tab="image">🖼️ Image</button>
+<button class="tab" data-tab="video">🎬 Video</button>
 </div>
 
-<section id="chat" class="panel">
-<div class="card">
-<h2>Talk to Nova</h2>
-<p class="hint">Ask questions, brainstorm, write, or learn.</p>
-<div id="chatlog" class="chatlog">
-<div class="bubble assistant">Hi! I'm Nova AI. What would you like to
+<section class="panel" id="chat">
+<h2>Talk to Nova AI</h2>
+<p class="hint">Ask questions and chat with
