@@ -2,91 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nova AI Studio</title>
-
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;padding:0;
- background:linear-gradient(145deg,#080b18,#171538,#071b2b);
- color:white;font-family:Arial,sans-serif;
- min-height:100vh
-}
-header{
- text-align:center;padding:22px 10px;
- background:#101428;border-bottom:1px solid #34365b
-}
-header h1{margin:0;font-size:27px}
-header h1 span{color:#22d3ee}
-header p{color:#b5bed5;font-size:13px}
-main{max-width:800px;margin:auto;padding:14px}
-.status{
- background:#111a2d;border:1px solid #34415f;
- padding:12px;border-radius:10px;font-size:13px;
- margin-bottom:12px;color:#b5bed5
-}
-.tabs{display:flex;gap:8px;margin-bottom:12px}
-.tab{
- flex:1;padding:13px 5px;border-radius:10px;
- border:1px solid #394363;background:#151b31;
- color:white;font-weight:bold
-}
-.tab.active{background:linear-gradient(110deg,#7c3aed,#087eaa)}
-.panel{
- background:#11182b;border:1px solid #303b59;
- border-radius:15px;padding:15px;margin-bottom:14px
-}
-.panel h2{margin-top:0}
-.hint{color:#b5bed5;font-size:13px;line-height:1.5}
-label{display:block;margin:13px 0 6px;font-size:13px}
-input,textarea,select{
- width:100%;padding:12px;border-radius:9px;
- border:1px solid #394363;background:#090f20;
- color:white;font-size:15px
-}
-textarea{min-height:95px;resize:vertical}
-button{cursor:pointer;font-size:15px}
-.primary{
- width:100%;padding:13px;margin-top:12px;
- border:0;border-radius:10px;color:white;
- font-weight:bold;background:linear-gradient(110deg,#7c3aed,#0891b2)
-}
-button:disabled{opacity:.55}
+body{margin:0;background:#0a0d18;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px 10px;background:#11182b;border-bottom:1px solid #35415f}
+h1{margin:0;color:#22d3ee}
+header p{color:#bbb;font-size:13px}
+main{max-width:800px;margin:auto;padding:15px}
+.tabs{display:flex;gap:8px;margin-bottom:15px}
+button{cursor:pointer;font-size:16px}
+.tab{flex:1;padding:13px 5px;border:1px solid #35415f;border-radius:10px;background:#171f35;color:white}
+.tab.active{background:#7c3aed}
+.panel{background:#11182b;border:1px solid #35415f;border-radius:15px;padding:16px;margin-bottom:15px}
 .hidden{display:none!important}
-.chatbox{
- height:270px;overflow:auto;background:#080e1e;
- border:1px solid #303b59;border-radius:10px;padding:10px
-}
-.bubble{
- padding:10px;margin:8px 0;border-radius:10px;
- white-space:pre-wrap;overflow-wrap:anywhere
-}
-.assistant{background:#1c2945}
-.user{background:#49317d}
-.chatrow{display:flex;gap:7px;margin-top:10px}
+textarea,input,select{width:100%;padding:13px;margin:7px 0;background:#090f20;color:white;border:1px solid #35415f;border-radius:9px;font-size:15px}
+textarea{min-height:100px}
+label{display:block;margin-top:12px;color:#ddd}
+.primary{width:100%;padding:14px;background:linear-gradient(90deg,#7c3aed,#0891b2);color:white;border:0;border-radius:10px;margin-top:12px;font-weight:bold}
+.primary:disabled{opacity:.6}
+#chatbox{height:280px;overflow:auto;background:#090f20;padding:10px;border-radius:10px}
+.bubble{padding:11px;margin:8px 0;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}
+.assistant{background:#202b45}
+.user{background:#49317b}
+.chatrow{display:flex;gap:7px}
 .chatrow input{flex:1;min-width:0}
-.chatrow button{
- padding:0 16px;border:0;border-radius:9px;
- background:#7c3aed;color:white;font-weight:bold
-}
-.result{margin-top:12px;overflow-wrap:anywhere;line-height:1.5}
-.result img,.result video{
- display:block;max-width:100%;height:auto;
- border-radius:10px;margin-top:10px
-}
-.download{
- display:inline-block;margin-top:10px;padding:10px;
- border-radius:8px;background:#263655;color:white;
- text-decoration:none
-}
-footer{text-align:center;color:#8994b2;font-size:12px;padding:15px}
+.chatrow button{padding:0 18px;background:#7c3aed;color:white;border:0;border-radius:9px}
+.result{margin-top:15px;overflow-wrap:anywhere}
+.result img,.result video{max-width:100%;border-radius:12px;margin-top:10px}
+.download{display:inline-block;color:white;background:#334155;padding:12px;border-radius:8px;margin-top:10px;text-decoration:none}
+.status{background:#11182b;padding:12px;border-radius:10px;margin-bottom:15px;color:#bbb;font-size:13px}
+footer{text-align:center;color:#999;padding:20px;font-size:12px}
 </style>
 </head>
-
 <body>
+
 <header>
-<h1>✦ NOVA <span>AI STUDIO</span></h1>
+<h1>✦ NOVA AI STUDIO</h1>
 <p>AI Chat • Image Generator • Video Generator</p>
 </header>
 
@@ -101,4 +54,313 @@ footer{text-align:center;color:#8994b2;font-size:12px;padding:15px}
 
 <section class="panel" id="chat">
 <h2>Talk to Nova AI</h2>
-<p class="hint">Ask questions and chat with
+<div id="chatbox">
+<div class="bubble assistant">Hi! I'm Nova AI. What would you like to create today?</div>
+</div>
+<form id="chatForm">
+<div class="chatrow">
+<input id="message" placeholder="Ask Nova anything..." required>
+<button id="chatSend" type="submit">Send</button>
+</div>
+</form>
+<div class="result" id="chatStatus"></div>
+</section>
+
+<section class="panel hidden" id="image">
+<h2>AI Image Generator</h2>
+<form id="imageForm">
+<label>Describe your image</label>
+<textarea id="imagePrompt" placeholder="A beautiful futuristic city at sunset..." required></textarea>
+
+<label>Image model</label>
+<select id="imageModel">
+<option value="flux">Flux</option>
+<option value="turbo">Turbo</option>
+</select>
+
+<label>Image size</label>
+<select id="imageSize">
+<option value="512">512 × 512</option>
+<option value="768" selected>768 × 768</option>
+<option value="1024">1024 × 1024</option>
+</select>
+
+<button class="primary" id="imageBtn" type="submit">Generate Image</button>
+</form>
+<div class="result" id="imageResult"></div>
+</section>
+
+<section class="panel hidden" id="video">
+<h2>AI Video Generator</h2>
+<form id="videoForm">
+<label>Describe your video</label>
+<textarea id="videoPrompt" placeholder="A spaceship flying over a beautiful alien ocean..." required></textarea>
+
+<label>Duration</label>
+<select id="videoDuration">
+<option value="5">5 seconds</option>
+<option value="10">10 seconds</option>
+</select>
+
+<label>Aspect ratio</label>
+<select id="videoRatio">
+<option value="16:9">Landscape 16:9</option>
+<option value="9:16">Portrait 9:16</option>
+<option value="1:1">Square 1:1</option>
+</select>
+
+<button class="primary" id="videoBtn" type="submit">Generate Video</button>
+</form>
+<div class="result" id="videoResult"></div>
+</section>
+</main>
+
+<footer>Nova AI Studio • Keep your API keys private.</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+
+document.querySelectorAll(".tab").forEach(button=>{
+button.addEventListener("click",()=>{
+document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+["chat","image","video"].forEach(id=>{
+$(id).classList.toggle("hidden",id!==button.dataset.tab);
+});
+});
+});
+
+async function api(path,options={}){
+const response=await fetch(path,options);
+const type=response.headers.get("content-type")||"";
+if(!response.ok){
+let message="Request failed: "+response.status;
+try{
+const data=type.includes("json")?await response.json():await response.text();
+message=typeof data==="string"?data:(data.error||data.message||message);
+}catch(e){}
+throw new Error(message);
+}
+return {response,type};
+}
+
+function showError(element,error){
+element.textContent="Error: "+error.message;
+}
+
+async function checkHealth(){
+try{
+const {response}=await api("/api/health");
+const data=await response.json();
+$("health").textContent="✅ Server connected"+(data.status?" • "+data.status:"");
+$("health").style.color="#86efac";
+}catch(e){
+$("health").textContent="⚠️ Server connection failed. Check Render deployment.";
+$("health").style.color="#fca5a5";
+}
+}
+
+function addBubble(text,type){
+const bubble=document.createElement("div");
+bubble.className="bubble "+type;
+bubble.textContent=text;
+$("chatbox").appendChild(bubble);
+$("chatbox").scrollTop=$("chatbox").scrollHeight;
+}
+
+$("chatForm").addEventListener("submit",async e=>{
+e.preventDefault();
+
+const input=$("message");
+const message=input.value.trim();
+if(!message)return;
+
+addBubble(message,"user");
+input.value="";
+$("chatSend").disabled=true;
+$("chatStatus").textContent="Nova is thinking...";
+
+try{
+const {response}=await api("/api/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+messages:[{role:"user",content:message}]
+})
+});
+
+const data=await response.json();
+const reply=data.reply??data.text??data.content??data.message;
+
+if(!reply)throw new Error("No reply received from server.");
+
+addBubble(typeof reply==="string"?reply:JSON.stringify(reply),"assistant");
+$("chatStatus").textContent="";
+}catch(error){
+showError($("chatStatus"),error);
+}finally{
+$("chatSend").disabled=false;
+input.focus();
+}
+});
+
+$("imageForm").addEventListener("submit",async e=>{
+e.preventDefault();
+
+const button=$("imageBtn");
+const output=$("imageResult");
+button.disabled=true;
+output.textContent="Generating your image...";
+
+try{
+const size=Number($("imageSize").value);
+
+const {response,type}=await api("/api/image",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+prompt:$("imagePrompt").value.trim(),
+model:$("imageModel").value,
+width:size,
+height:size
+})
+});
+
+output.replaceChildren();
+
+if(type.includes("image/")){
+const blob=await response.blob();
+const url=URL.createObjectURL(blob);
+displayImage(url);
+}else{
+const data=await response.json();
+const url=data.url||data.image_url||data.image||data.output?.url;
+if(!url)throw new Error(data.error||"No image URL returned.");
+displayImage(url);
+}
+
+function displayImage(url){
+const img=document.createElement("img");
+img.src=url;
+img.alt="Generated AI image";
+output.appendChild(img);
+
+const link=document.createElement("a");
+link.className="download";
+link.href=url;
+link.target="_blank";
+link.rel="noopener";
+link.download="nova-image.png";
+link.textContent="Open / Save Image";
+output.appendChild(link);
+}
+
+}catch(error){
+showError(output,error);
+}finally{
+button.disabled=false;
+}
+});
+
+$("videoForm").addEventListener("submit",async e=>{
+e.preventDefault();
+
+const button=$("videoBtn");
+const output=$("videoResult");
+button.disabled=true;
+output.textContent="Starting video generation...";
+
+try{
+const {response}=await api("/api/video",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+prompt:$("videoPrompt").value.trim(),
+duration:Number($("videoDuration").value),
+ratio:$("videoRatio").value
+})
+});
+
+let data=await response.json();
+let videoUrl=data.video_url||data.url||data.video;
+
+if(videoUrl){
+displayVideo(videoUrl);
+return;
+}
+
+let statusUrl=data.status_url||data.statusUrl||data.poll_url;
+
+if(!statusUrl){
+throw new Error(data.error||"Video status URL was not returned by the server.");
+}
+
+for(let i=0;i<90;i++){
+output.textContent="Video processing... Please wait. ("+(i+1)+"/90)";
+
+await new Promise(resolve=>setTimeout(resolve,4000));
+
+const {response:statusResponse}=await api(
+"/api/video/status?url="+encodeURIComponent(statusUrl)
+);
+
+data=await statusResponse.json();
+
+const state=String(data.status||data.state||"").toUpperCase();
+
+if(["COMPLETED","COMPLETE","SUCCEEDED","SUCCESS","READY"].includes(state)){
+const resultUrl=data.response_url||data.result_url||data.url||statusUrl;
+
+const {response:resultResponse,type}=await api(
+"/api/video/result?url="+encodeURIComponent(resultUrl)
+);
+
+if(type.includes("video/")){
+const blob=await resultResponse.blob();
+displayVideo(URL.createObjectURL(blob));
+}else{
+const result=await resultResponse.json();
+const url=result.video_url||result.url||result.video||result.output?.url;
+if(!url)throw new Error("Video completed but no video URL was returned.");
+displayVideo(url);
+}
+return;
+}
+
+if(["FAILED","ERROR","CANCELLED"].includes(state)){
+throw new Error(data.error||data.message||"Video generation failed.");
+}
+}
+
+throw new Error("Video is taking too long. Please try again later.");
+
+}catch(error){
+showError(output,error);
+}finally{
+button.disabled=false;
+}
+
+function displayVideo(url){
+output.replaceChildren();
+
+const video=document.createElement("video");
+video.src=url;
+video.controls=true;
+video.playsInline=true;
+output.appendChild(video);
+
+const link=document.createElement("a");
+link.className="download";
+link.href=url;
+link.target="_blank";
+link.rel="noopener";
+link.download="nova-video.mp4";
+link.textContent="Open / Save Video";
+output.appendChild(link);
+}
+});
+
+checkHealth();
+</script>
+</body>
+</html>
